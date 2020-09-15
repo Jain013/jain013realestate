@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} | About{% endblock %}
+{% block content %} 
+<!-- <section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">About BT Real Estate</h1>
+          <p class="lead">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur! 
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+ -->
+ {% with title="About BT Real Estate"  sub_title="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur" %} 
+   {% include 'partials/_showcase.html' %}
+ {% endwith %}
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'pages:home' %}">Home</a>
+          </li>
+          <li class="breadcrumb-item active">About</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section id='about' class='py-4'>
+      <div class='container'>
+          <div class='row'>
+             <div class='col-md-8'>
+                <h1 class='mb-3'>We Search For The Perfect Home</h1>
+                <p class='lead'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!</p>
+                <img src="{% static 'img/about.jpg' %}">
+                <p class='mt-4'>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis esse officia repudiandae ad saepe ex, amet neque quod accusamus rem quia magnam magni dolorum facilis ullam minima perferendis? Exercitationem at quaerat commodi id libero eveniet harum perferendis laborum molestias quia.
+                </p>
+             </div>
+             <div class='col-md-4'>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ sotm.photo.url }}" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Seller of the month</h5>
+                      <h6 class="text-secondary">{{ sotm.name }}</h6>
+                      <p class="card-text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis nesciunt amet, illo itaque similique repellat. content.                       </p>
+                    </div>
+                </div>
+             </div>
+          </div>
+      </div>
+  </section> 
+
+  <section id="work" class="bg-dark text-white text-center">
+    <h2 class="display-4">We Work For You</h2>
+    <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit aperiam, unde aliquid at similique!</h4>
+    <hr>
+    <a href="{% url 'listings:listings' %}" class="btn btn-secondary text-white btn-lg">View Our Featured Listings</a>
+  </section>
+  
+   
+ <section id="realtors" class="py-5">
+    <div class="container">
+      {% if realtors %}
+      <h3 class="text-center mb-3">Our Team</h3>
+       <div class="row text-center">
+         {% if realtors %}
+            {% for realtor in realtors %}
+              <div class='col-md-4'>
+                <img class="rounded-circle mb-3" src="{{ realtor.photo.url }}">
+                <h4>{{ realtor.name }}</h4>
+                <p class='text-success'>
+                  {% if realtor.id == sotm.id %}
+                    <i class='fas fa-award text-success'></i>
+                  {% endif%} 
+                  Realtor
+                </p>
+                <hr>
+                <p>
+                  <i class="fas fa-phone"></i> {{ realtor.phone }}</p>
+                <p>
+                  <i class="fas fa-envelope-open"></i> {{ realtor.email }}</p>
+              </div>   
+            {% endfor %}
+          {% endif %}   
+       </div>
+       {% else %}
+          <h3 class="text-center mb-3">No Realtors Listed</h3>
+       {% endif %}
+    </div>
+  </section>      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+

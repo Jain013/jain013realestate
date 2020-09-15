@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %} | Dashboard {% endblock %}
+
+{% block content %}
+    {% with title="User Dashboard"  sub_title="Manage your BT Real Estate account" %} 
+        {% include 'partials/_showcase.html' %}
+    {% endwith %}
+
+    <section id="bc" class="mt-3">
+        <div class="container">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="{% url 'pages:home' %}">
+                  <i class="fas fa-home"></i> Home</a>
+              </li>
+              <li class="breadcrumb-item active"> Dashboard</li>
+            </ol>
+          </nav>
+        </div>
+      </section>
+      
+       <section id='dashboard py-4'>
+         <div class='container'>
+             <div class='row'>
+                <div class='col-md-12'>
+                    <h3>Welcome
+                        {% if user.first_name %} 
+                          {{ user.first_name|title }}
+                        {% else %}
+                          {{ user.username|title }}
+                        {% endif %}  
+                    </h3>   
+                     {% if inquiries %}
+                        <p>Here are the property listings that you have inquired about</p>
+                        <table class='table'>
+                                <thead>
+                                    <tr>
+                                        <th scope='col'>#</th>
+                                        <th scope='col'>Property</th>
+                                        <th></th>
+                                    </tr>    
+                                </thead>
+                            <tbody>
+                                {% for inquiry in inquiries %}
+                                    <tr>
+                                        <td>{{ inquiry.id }}</td>
+                                        <td>{{ inquiry.listing }}</td>
+                                        <td> 
+                                            <a class="btn btn-light" href="{% url 'listings:listing' inquiry.listing_id %}">View Listing</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                       <div>
+                           <p class='mt-3 text-center'>
+                               No Listings Inquired till now. Find your new Home today <a href="{% url 'listings:listings' %}">here</a>.
+                           </p>
+                       </div>    
+                    {% endif %}
+                 </div>   
+             </div>       
+         </div>    
+       </section>    
+{% endblock %}
+
+
