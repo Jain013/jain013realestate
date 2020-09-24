@@ -5,20 +5,23 @@ from django.core.paginator import Paginator
 from listings.choices import price_choices,state_choices,bedrooms_choices
 
 def index(request):
-    listings=Listing.objects.order_by('-list_date').filter(is_published=True)
-    for listing in listings:
-        print('hello')
-        print(listing.list_date)
-    paginator=Paginator(listings,2)
-    page_number=request.GET.get('page')
-    page_listings=paginator.get_page(page_number)
+    try:
+      listings=Listing.objects.order_by('-list_date').filter(is_published=True)
+      paginator=Paginator(listings,2)
+      page_number=request.GET.get('page')
+      page_listings=paginator.get_page(page_number)
+    except Listing.DoesNotExist:
+      page_listings= None  
+
     context={
         'listings':page_listings
     }
     return render(request,'listings/listings.html',context)
 
 def listing(request,listing_id):
-    listing=Listing.objects.get(pk=listing_id)
+    
+    listing=get_object_or_404(Listing,pk=listing_id)
+     
     context={
         'listing': listing,
     }

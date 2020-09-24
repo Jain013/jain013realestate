@@ -46,10 +46,22 @@
              </div>
              <div class='col-md-4'>
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ sotm.photo.url }}" alt="Card image cap">
+                    <img class="card-img-top" 
+                          {% if sotm %}
+                              src="{{ sotm.photo.url }}" 
+                          {% else %}
+                              src="{% static 'img/placeholder.png' %}"
+                          {% endif %} 
+                    alt="Card image cap">
+
                     <div class="card-body">
                       <h5 class="card-title">Seller of the month</h5>
-                      <h6 class="text-secondary">{{ sotm.name }}</h6>
+                          {% if sotm %}
+                              <h6 class="text-secondary">{{ sotm.name }}</h6>
+                          {% else %}
+                              <h6 class="text-secondary">You can be here too.</h6>
+                          {% endif %} 
+                      
                       <p class="card-text">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis nesciunt amet, illo itaque similique repellat. content.                       </p>
                     </div>
